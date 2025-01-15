@@ -18,7 +18,7 @@
 
 ## [Merge Intervals](https://leetcode.com/problems/merge-intervals)  (☆☆) ͏
 
-- 
+- \# 先按第零个位置排序，再按第一个位置排序 sorted_data = sorted(data, key=lambda x: (x[0], x[1]))
 
 ```python
 
@@ -39,5 +39,4 @@
 ```python
 
 ```
-
 
