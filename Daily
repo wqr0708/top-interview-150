@@ -1,0 +1,163 @@
+> yyyy-mm-dd
+
+---
+
+[toc]
+
+---
+
+# Multidimensional DP
+
+## [[1765. Map of Highest Peak]](https://leetcode.com/problems/map-of-highest-peak/)  (☆☆) ͏
+
+- bfs
+
+- ### **一定要记得是popleft！！！**
+
+```python
+class Solution:
+    def highestPeak(self, isWater: List[List[int]]) -> List[List[int]]:
+        queue = deque()
+        if not isWater:
+            return None
+        n = len(isWater)
+        m = len(isWater[0])
+        height = [[0] * m for _ in range(n)]
+        direction = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        for i in range(n):
+            for j in range(m):
+                if isWater[i][j]:
+                    queue.append((i, j))
+        while queue:
+            r, c = queue.popleft()
+            h = height[r][c]
+            for i in range(4):
+                nr = r + direction[i][0]
+                nc = c + direction[i][1]
+                if 0 <= nr < n and 0 <= nc < m:
+                    if height[nr][nc] == 0:
+                        if not isWater[nr][nc]:
+                            height[nr][nc] = h + 1
+                            queue.append((nr, nc))
+                    # else:
+                    #     if height[nr][nc] > h + 1:
+                    #         height[nr][nc] = h + 1
+                    #         queue.append((nr, nc))
+                    #     elif height[nr][nc] < h - 1:
+                    #         height[r][c] = height[nr][nc] + 1
+                    #         queue.append((r, c))
+                    #         break
+        return height
+```
+
+## [1462. Course Schedule IV](https://leetcode.com/problems/course-schedule-iv/)(☆☆) ͏
+
+- bfs
+- 记录indegree，只有为0时才加入队列
+- 记录每个节点的祖宗节点
+
+```python
+class Solution:
+    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
+        queue = deque()
+        indegree = [0] * numCourses
+        result = [True] * len(queries)
+        edge = defaultdict(list)
+        pre = defaultdict(set)
+        for a, b in prerequisites:
+            indegree[b] += 1
+            edge[a].append(b)
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                queue.append(i)
+        while queue:
+            node = queue.pop()
+            p = pre[node]
+            for n in edge[node]:
+                indegree[n] -= 1
+                if indegree[n] == 0:
+                    queue.append(n)
+                pre[n] = pre[n] | p
+                pre[n].add(node)
+        return [qa in pre[qb] for qa, qb in queries]
+```
+
+## [Unique Paths II](https://leetcode.com/problems/unique-paths-ii)  (☆☆) ͏
+
+- 
+
+```python
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        if not obstacleGrid:
+            return 0
+        n = len(obstacleGrid)
+        m = len(obstacleGrid[0])
+        dp = [1] * m
+        path = 1
+        for j in range(m):
+            if obstacleGrid[0][j]:
+                path = 0
+            dp[j] = path
+        for i in range(1, n):
+            if obstacleGrid[i][0]:
+                dp[0] = 0
+            else:
+                dp[0] = dp[0]
+            for j in range(1, m):
+                if obstacleGrid[i][j]:
+                    dp[j] = 0
+                else:
+                    dp[j] = dp[j] + dp[j - 1]
+            print(dp)
+        return dp[-1]
+```
+
+## [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring)  (☆☆) ͏
+
+- 
+
+```python
+
+```
+
+## [Interleaving String](https://leetcode.com/problems/interleaving-string)  (☆☆) ͏
+
+- 
+
+```python
+
+```
+
+## [Edit Distance](https://leetcode.com/problems/edit-distance)  (☆☆) ͏
+
+- 
+
+```python
+
+```
+
+## [Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii)  (☆☆☆) ͏
+
+- 
+
+```python
+
+```
+
+## [Best Time to Buy and Sell Stock IV](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv)  (☆☆☆) ͏
+
+- 
+
+```python
+
+```
+
+## [Maximal Square](https://leetcode.com/problems/maximal-square)  (☆☆) ͏
+
+- 
+
+```python
+
+```
+

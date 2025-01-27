@@ -34,7 +34,22 @@ class Solution:
 - 
 
 ```python
-
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i = 0
+        j = 0
+        n = len(s)
+        m = len(t)
+        while i < n and j < m:
+            if s[i] == t[j]:
+                i += 1
+                j += 1
+            else:
+                j += 1
+        if i == n:
+            return True
+        else:
+            return False
 ```
 
 ## [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted)  (☆☆) ͏
@@ -42,7 +57,22 @@ class Solution:
 - 
 
 ```python
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        if not numbers:
+            return -1
 
+        l = 0
+        r = len(numbers) - 1
+        while l < r:
+            now = numbers[l] + numbers[r]
+            if now == target:
+                return l + 1, r + 1
+            elif now > target:
+                r -= 1
+            else:
+                l += 1
+        return -1
 ```
 
 ## [Container With Most Water](https://leetcode.com/problems/container-with-most-water)  (☆☆) ͏
